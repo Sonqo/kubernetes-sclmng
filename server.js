@@ -1,11 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const app = express();
-app.use(express.urlencoded({ extended : true }));
-app.use(express.json());
+const home = require('./routes/home');
+const data = require('./routes/data');
 
 const dbConfig = require('./config/database-config');
+
+const server = express();
+server.use(express.urlencoded({ extended : true }));
+server.use(express.json());
 
 mongoose.connect(dbConfig.url, {
     useNewUrlParser: true
@@ -13,13 +16,13 @@ mongoose.connect(dbConfig.url, {
     console.log('Successfully connected to database');
 }).catch(err => {
     console.log("Could not connect to database");
-})
+});
 
-app.get('/', (req, res) => {
-    res.send("Welcome to Node-App!")
-})
+const baseUrl = '/node-app/api';
+server.use(`${baseUrl}/`, home);
+server.use(`${baseUrl}/data`, data);
 
-const port = 3000
-app.listen(port, () => {
+const port = 3000;
+server.listen(port, () => {
     console.log(`Server listening on port ${port}`)
-})
+});
