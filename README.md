@@ -1,1 +1,1 @@
-# kubernetes-sclmng
+# Scalable MongoDB on Kubernetes
