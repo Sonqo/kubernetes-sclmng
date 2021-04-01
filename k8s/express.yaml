@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-deployment
+  name: express-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: node
+      app: express
   template:
     metadata:
       labels:
-        app: node
+        app: express
     spec:
       containers:
-      - name: node
+      - name: express
         env:
         - name: MONGO_URL
-          value: mongodb://mongo-service:27017/node
+          value: mongodb://mongo-service:27017/express
         resources: {}
-        image: sonqo/node-app:latest
+        image: sonqo/express-app:latest
         ports:  
           - containerPort: 3000
 
@@ -27,10 +27,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: node-service
+  name: express-service
 spec:
   selector:
-    app: node
+    app: express
   type: LoadBalancer
   ports:
   - protocol: TCP

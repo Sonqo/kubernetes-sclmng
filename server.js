@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const home = require('./routes/home');
-const data = require('./routes/data');
+// const data = require('./routes/data');
 
 const dbConfig = require('./config/database-config');
 
@@ -18,9 +18,9 @@ mongoose.connect(dbConfig.url, {
     console.log("Could not connect to database");
 });
 
-const baseUrl = '/node-app/api';
+const baseUrl = '/api';
 server.use(`${baseUrl}/`, home);
-server.use(`${baseUrl}/data`, data);
+// server.use(`${baseUrl}/data`, data);
 
 const port = 3000;
 server.listen(port, () => {
