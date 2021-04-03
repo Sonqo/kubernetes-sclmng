@@ -39,7 +39,7 @@ metadata:
 spec:
     selector:
         app: express
-    type: LoadBalancer
+    type: NodePort
     ports:
         - protocol: TCP
           port: 3000
