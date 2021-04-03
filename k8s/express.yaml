@@ -13,6 +13,13 @@ spec:
             labels:
                 app: express
         spec:
+            topologySpreadConstraints:
+                - maxSkew: 1
+                  topologyKey: zone
+                  whenUnsatisfiable: DoNotSchedule
+                  labelSelector:
+                      matchLabels:
+                          app: express
             containers:
                 - name: express
                   env:
