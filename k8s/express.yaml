@@ -41,7 +41,8 @@ spec:
         app: express
     type: NodePort
     ports:
-        - protocol: TCP
-          port: 3000
-          targetPort: 3000
+        - name: http
+          protocol: TCP
+          port: 80
           nodePort: 30042
+          targetPort: 3000
