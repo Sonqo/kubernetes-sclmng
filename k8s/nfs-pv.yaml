@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: nfs-pv
+    namespace: thesis-nmspc
+    labels:
+        type: local
+spec:
+    storageClassName: manual
+    capacity:
+        storage: 1Gi
+    accessModes:
+        - ReadWriteMany
+    nfs:
+        server: 147.102.19.80
+        path: '/kubedata'
