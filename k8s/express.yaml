@@ -23,6 +23,9 @@ spec:
                           app: express
             containers:
                 - name: express
+                  env:
+                      - name: MONGO_URL
+                        value: mongodb://mongo-service:27017/express
                   resources: {}
                   image: sonqo/express-app:latest
                   ports:
