@@ -25,7 +25,7 @@ spec:
                 - name: express
                   env:
                       - name: MONGO_URL
-                        value: mongodb://mongo-service:27017/express?replicaSet=rs0
+                        value: mongodb://mongo-service:27017/express?replicaSet=rs
                   resources: {}
                   image: sonqo/express-app:latest
                   ports:
