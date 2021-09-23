@@ -3,7 +3,7 @@ const router = require('express').Router();
 
 const dbConfig = require('../config/database-config');
 
-const Movie = require('../models/Movie');
+const Stock = require('../models/Pfizer');
 
 mongoose
     .connect(dbConfig.url, {
@@ -19,16 +19,21 @@ router.get('/show', (req, res) => {
         if (!user) {
             res.sendStatus(403);
         } else {
-            docs = await Movie.find({ id: req.body.id });
+            docs = await Movie.find({ Date: req.body.Date });
             res.send(docs);
         }
     });
 });
 
 router.post('/add', (req, res) => {
-    const newMovie = new Movie({
-        id: req.body.id,
-        title: req.body.title,
+    const newStock = new Stock({
+        Date: req.body.Date,
+        Open: req.body.Open,
+        High: req.body.High,
+        Low: req.body.Low,
+        Close: req.body.Close,
+        'Adj Close': req.body['Adj Close'],
+        Volume: req.body.Volume,
     });
     newMovie
         .save()
