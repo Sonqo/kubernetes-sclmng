@@ -31,7 +31,6 @@ def simulate_increased_load():
 
     for i in range(1000):
         f_date, s_date = generate_random_date_range()
-        print(f_date, s_date)
         data = {
             's_Date' : str(f_date),
             'e_Date' : str(s_date)

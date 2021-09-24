@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
 
-const dbConfig = require('../config/database-config');
-
 const Stock = require('../models/Pfizer');
+
+const dbConfig = require('../config/database-config');
 
 mongoose
     .connect(dbConfig.url, {
@@ -23,22 +23,6 @@ router.get('/show', (req, res) => {
             res.send(docs);
         }
     });
-});
-
-router.post('/add', (req, res) => {
-    const newStock = new Stock({
-        Date: req.body.Date,
-        Open: req.body.Open,
-        High: req.body.High,
-        Low: req.body.Low,
-        Close: req.body.Close,
-        'Adj Close': req.body['Adj Close'],
-        Volume: req.body.Volume,
-    });
-    newStock
-        .save()
-        .then((stock) => res.json(stock))
-        .catch((err) => console.log(err));
 });
 
 module.exports = router;
