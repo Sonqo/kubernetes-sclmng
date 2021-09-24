@@ -1,5 +1,11 @@
+# VSCode configuration
+/.vscode
+
+# Node libraries
 /node_modules
 
+# Data
 /data
 
+# MACOS
 .DS_Store
