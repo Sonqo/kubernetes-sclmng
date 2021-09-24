@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const stockSchema = new mongoose.Schema({
     Date: {
-        type: Number,
+        type: String,
         required: true,
     },
     Open: {

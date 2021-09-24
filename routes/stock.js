@@ -13,13 +13,13 @@ mongoose
     .catch((err) => console.error('Problem connecting to Mongo', err));
 
 router.get('/show', (req, res) => {
-    Movie.findOne({
-        id: req.body.id,
-    }).then(async (user) => {
-        if (!user) {
+    Stock.findOne({
+        Date: { $gte: req.body.s_Date, $lt: req.body.e_Date },
+    }).then(async (stock) => {
+        if (!stock) {
             res.sendStatus(403);
         } else {
-            docs = await Movie.find({ Date: req.body.Date });
+            docs = await Stock.find({ Date: { $gte: req.body.s_Date, $lt: req.body.e_Date } });
             res.send(docs);
         }
     });
@@ -35,9 +35,9 @@ router.post('/add', (req, res) => {
         'Adj Close': req.body['Adj Close'],
         Volume: req.body.Volume,
     });
-    newMovie
+    newStock
         .save()
-        .then((movie) => res.json(movie))
+        .then((stock) => res.json(stock))
         .catch((err) => console.log(err));
 });
 
