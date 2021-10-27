@@ -31,6 +31,6 @@ const stockSchema = new mongoose.Schema({
     },
 });
 
-const Stock = mongoose.model('Pfizer', stockSchema, 'Pfizer');
+const Pfizer = mongoose.model('Pfizer', stockSchema, 'Pfizer');
 
-module.exports = Stock;
+module.exports = Pfizer;

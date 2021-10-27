@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const router = require('express').Router();
 
-const Stock = require('../models/Pfizer');
+const Pfizer = require('../models/Pfizer');
 
 const dbConfig = require('../config/database-config');
 
@@ -13,13 +13,13 @@ mongoose
     .catch((err) => console.error('Problem connecting to Mongo', err));
 
 router.get('/show', (req, res) => {
-    Stock.findOne({
+    Pfizer.findOne({
         Date: { $gte: req.body.s_Date, $lt: req.body.e_Date },
     }).then(async (stock) => {
         if (!stock) {
             res.sendStatus(403);
         } else {
-            docs = await Stock.find({ Date: { $gte: req.body.s_Date, $lt: req.body.e_Date } });
+            docs = await Pfizer.find({ Date: { $gte: req.body.s_Date, $lt: req.body.e_Date } });
             res.send(docs);
         }
     });
