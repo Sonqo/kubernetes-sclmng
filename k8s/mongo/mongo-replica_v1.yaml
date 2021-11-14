@@ -3,7 +3,7 @@ kind: MongoDBCommunity
 metadata:
     name: mongodb-rs
 spec:
-    members: 2
+    members: 1
     type: ReplicaSet
     version: '4.2.6'
     security:
@@ -26,14 +26,3 @@ spec:
           scramCredentialsSecretName: my-scram
     additionalMongodConfig:
         storage.wiredTiger.engineConfig.journalCompressor: zlib
-
-# the user credentials will be generated from this secret
-# once the credentials are generated, this secret is no longer required
----
-apiVersion: v1
-kind: Secret
-metadata:
-    name: user-password
-type: Opaque
-stringData:
-    password: root
