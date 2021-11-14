@@ -2,7 +2,7 @@
 /.vscode
 
 # Node libraries
-/node_modules
+api/node_modules
 
 # Data
 /data

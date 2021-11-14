@@ -36,6 +36,7 @@ def simulate_increased_load():
             'e_Date' : str(s_date)
         }
         requests.get(url, data=data)
-
+        if i % 100 == 0:
+            print('Requests made: {}'.format(i))
 
 simulate_increased_load()

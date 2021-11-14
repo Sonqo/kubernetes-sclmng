@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: monitoring
+    labels:
+        app: monitoring
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: monitoring
+    template:
+        metadata:
+            labels:
+                app: monitoring
+        spec:
+            serviceAccountName: sonqo
+            containers:
+                - name: monitoring
+                  image: sonqo/monitoring-app:latest
