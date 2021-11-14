@@ -9,3 +9,6 @@
 
 # MACOS
 .DS_Store
+
+# Admin configuration
+k8s/mongo/admin.conf
