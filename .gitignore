@@ -11,4 +11,4 @@ api/node_modules
 .DS_Store
 
 # Admin configuration
-k8s/mongo/admin.conf
+admin.conf

@@ -13,4 +13,4 @@ RUN mv ./kubectl /usr/local/bin
 
 RUN pip install kubernetes
 
-CMD [ "python", "./metrics.py" ]
+CMD [ "python", "-u", "./metrics.py" ]

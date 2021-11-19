@@ -1,11 +1,14 @@
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
-    name: mongodb-rs
+    name: mongo-sc
 spec:
-    members: 2
-    type: ReplicaSet
-    version: '4.2.6'
+    shardCount: 2
+    mongodsPerShardCount: 2
+    mongosCount: 2
+    configServerCount: 2
+    version: '4.2.2'
+    type: ShardedCluster
     security:
         authentication:
             modes: ['SCRAM']
