@@ -5,7 +5,7 @@ metadata:
     labels:
         app: express
 spec:
-    replicas: 2
+    replicas: 3
     selector:
         matchLabels:
             app: express
@@ -14,11 +14,9 @@ spec:
             labels:
                 app: express
         spec:
-            nodeSelector:
-                role: worker
             topologySpreadConstraints:
                 - maxSkew: 1
-                  topologyKey: zone
+                  topologyKey: kubernetes.io/hostname
                   whenUnsatisfiable: DoNotSchedule
                   labelSelector:
                       matchLabels:
@@ -27,7 +25,7 @@ spec:
                 - name: express
                   env:
                       - name: MONGO_URL
-                        value: mongodb://user:root@mongo-service:27017/app?authMechanism=SCRAM-SHA-256&authSource=app&replicaSet=mongodb-rs
+                        value: mongodb://user:root@mongodb-service:27017/thesis?authMechanism=SCRAM-SHA-256&authSource=admin
                   image: sonqo/express-app:latest
                   ports:
                       - containerPort: 3000

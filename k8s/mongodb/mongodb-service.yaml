@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: mongodb-service
+spec:
+    selector:
+        app: mongodb-sharding-svc
+    ports:
+        - protocol: TCP
+          port: 27017
+          targetPort: 27017
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mongodb-exposed
+spec:
+    selector:
+        app: mongodb-sharding-svc
+    type: LoadBalancer
+    ports:
+        - protocol: TCP
+          port: 80
+          targetPort: 27017

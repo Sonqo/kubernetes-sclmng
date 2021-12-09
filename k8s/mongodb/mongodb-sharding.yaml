@@ -1,0 +1,16 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+    name: mongodb-sharding
+spec:
+    shardCount: 2
+    mongodsPerShardCount: 1
+    mongosCount: 3
+    configServerCount: 3
+    version: 4.4.4-ent
+    opsManager:
+        configMapRef:
+            name: mongodb-configmap
+    credentials: programmatic-api-key
+    type: ShardedCluster
+    persistent: true
