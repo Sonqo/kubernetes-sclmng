@@ -2,12 +2,12 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
     name: sonqo
-    namespace: app
+    namespace: mongodb-poc
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-    namespace: app
+    namespace: mongodb-poc
     name: sonqo-role
 rules:
     - apiGroups: ['*']
@@ -18,12 +18,12 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
     name: sonqo-controller
-    namespace: app
+    namespace: mongodb-poc
 subjects:
     - kind: ServiceAccount
       name: sonqo
       apiGroup: ''
-      namespace: app
+      namespace: mongodb-poc
 roleRef:
     kind: ClusterRole
     name: sonqo-role
