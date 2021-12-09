@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const home = require('./routes/home');
-const movie = require('./routes/stock');
+const ride = require('./routes/ride');
 
 const dbConfig = require('./config/database-config');
 
@@ -23,7 +23,7 @@ mongoose
 
 const baseUrl = '/api';
 server.use(`${baseUrl}/`, home);
-server.use(`${baseUrl}/stock`, movie);
+server.use(`${baseUrl}/ride`, ride);
 
 const port = 3000;
 server.listen(port, () => {
