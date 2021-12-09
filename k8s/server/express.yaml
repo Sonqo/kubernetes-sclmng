@@ -5,7 +5,7 @@ metadata:
     labels:
         app: express
 spec:
-    replicas: 3
+    replicas: 1
     selector:
         matchLabels:
             app: express
@@ -25,7 +25,7 @@ spec:
                 - name: express
                   env:
                       - name: MONGO_URL
-                        value: mongodb://user:root@mongodb-service:27017/thesis?authMechanism=SCRAM-SHA-256&authSource=admin
+                        value: mongodb://user:root@mongodb-service.mongodb-poc:27017/thesis?authMechanism=SCRAM-SHA-256&authSource=admin
                   image: sonqo/express-app:latest
                   ports:
                       - containerPort: 3000
