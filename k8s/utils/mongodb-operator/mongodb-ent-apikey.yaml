@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: programmatic-api-key
+type: Opaque
+stringData:
+    publicKey: crupbykb
+    privateKey: 7e0337e8-0c9d-481b-a544-9e15b52265c8

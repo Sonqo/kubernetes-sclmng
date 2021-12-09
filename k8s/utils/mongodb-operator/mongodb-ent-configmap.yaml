@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: mongodb-configmap
+data:
+    baseUrl: http://34.79.196.61:8080
+    orgId: 61b0ad27feb8f60592a5141c
+    projectName: mongodb-poc

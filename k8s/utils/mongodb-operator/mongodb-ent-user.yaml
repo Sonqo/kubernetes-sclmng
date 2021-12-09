@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: mongodb-user-password
+type: Opaque
+stringData:
+    password: root
+---
+apiVersion: mongodb.com/v1
+kind: MongoDBUser
+metadata:
+    name: mongodb-user
+spec:
+    passwordSecretKeyRef:
+        name: mongodb-user-password
+        key: password
+    username: user
+    db: admin
+    mongodbResourceRef:
+        name: mongodb-sharding
+    roles:
+        - db: admin
+          name: clusterAdmin
+        - db: admin
+          name: dbAdminAnyDatabase
+        - db: admin
+          name: userAdminAnyDatabase
+        - db: admin
+          name: readWriteAnyDatabase
