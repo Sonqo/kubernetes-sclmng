@@ -3,7 +3,7 @@ kind: MongoDB
 metadata:
     name: mongodb-sharded
 spec:
-    shardCount: 2
+    shardCount: 3
     mongodsPerShardCount: 1
     mongosCount: 3
     configServerCount: 3
