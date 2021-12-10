@@ -4,8 +4,8 @@ import random, datetime, requests
 
 def generate_random_date() -> str:
 
-    start_date = datetime.date(1972, 6, 1)
-    end_date = datetime.date(2021, 9, 22)
+    start_date = datetime.date(2020, 8, 1)
+    end_date = datetime.date(2020, 10, 31)
 
     time_between_dates = end_date - start_date
     days_between_dates = time_between_dates.days
@@ -27,16 +27,17 @@ def generate_random_date_range() -> Tuple[str, str]:
 
 def simulate_increased_load():
 
-    url = 'http://147.102.19.240/api/stock/show'
+    url = 'http://35.205.254.108/api/api/ride/show'
+
+    hour = random.randint(10, 23)
 
     for i in range(1000):
-        f_date, s_date = generate_random_date_range()
+        f_date, _ = generate_random_date_range()
         data = {
-            's_Date' : str(f_date),
-            'e_Date' : str(s_date)
+            's_Date' : str(f_date) + ' {}:00:00'.format(hour),
+            'e_Date' : str(f_date) + ' {}:00:00'.format(hour+2)
         }
-        requests.get(url, data=data)
-        if i % 100 == 0:
-            print('Requests made: {}'.format(i))
+        res = requests.get(url, data=data)
+        print('Requests made: {} | Execution time: {}'.format(i, res.elapsed.total_seconds()))
 
 simulate_increased_load()
