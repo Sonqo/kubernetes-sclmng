@@ -1,7 +1,7 @@
 apiVersion: mongodb.com/v1
 kind: MongoDB
 metadata:
-    name: mongodb-sharding
+    name: mongodb-sharded
 spec:
     shardCount: 2
     mongodsPerShardCount: 1
@@ -14,3 +14,18 @@ spec:
     credentials: programmatic-api-key
     type: ShardedCluster
     persistent: true
+    configSrvPodSpec:
+        topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+    mongosPodSpec:
+        topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+    shardPodSpec:
+        topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule

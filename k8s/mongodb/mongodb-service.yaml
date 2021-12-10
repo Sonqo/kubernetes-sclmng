@@ -4,7 +4,7 @@ metadata:
     name: mongodb-service
 spec:
     selector:
-        app: mongodb-sharding-svc
+        app: mongodb-sharded-svc
     ports:
         - protocol: TCP
           port: 27017
@@ -13,10 +13,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    name: mongodb-exposed
+    name: mongodb-sharded-svc-external
 spec:
     selector:
-        app: mongodb-sharding-svc
+        app: mongodb-sharded-svc
     type: LoadBalancer
     ports:
         - protocol: TCP

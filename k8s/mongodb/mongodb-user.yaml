@@ -17,7 +17,7 @@ spec:
     username: user
     db: admin
     mongodbResourceRef:
-        name: mongodb-sharding
+        name: mongodb-sharded
     roles:
         - db: admin
           name: clusterAdmin
