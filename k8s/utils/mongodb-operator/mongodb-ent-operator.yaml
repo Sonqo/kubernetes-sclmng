@@ -197,6 +197,8 @@ spec:
             securityContext:
                 runAsNonRoot: true
                 runAsUser: 2000
+            nodeSelector:
+                status: master
             containers:
                 - name: mongodb-enterprise-operator
                   image: quay.io/mongodb/mongodb-enterprise-operator:1.13.0

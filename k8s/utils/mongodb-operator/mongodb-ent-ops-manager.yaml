@@ -22,5 +22,17 @@ spec:
     applicationDatabase:
         members: 3
         version: 4.4.4-ent
+        podSpec:
+            podTemplate:
+                spec:
+                    nodeSelector:
+                        status: worker
+                    topologySpreadConstraints:
+                        - maxSkew: 1
+                          topologyKey: kubernetes.io/hostname
+                          whenUnsatisfiable: DoNotSchedule
+                          labelSelector:
+                              matchLabels:
+                                  pod-anti-affinity: mongodb-enterprise-opsmanager-db
     backup:
         enabled: false

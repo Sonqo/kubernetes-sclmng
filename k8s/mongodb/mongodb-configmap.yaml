@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
     name: mongodb-configmap
 data:
-    baseUrl: http://34.140.80.161:8080
-    orgId: 61b349eaa672c35b5017e809
+    baseUrl: http://35.195.45.182:8080
+    orgId: 61b74fca7a2145481360a5eb
     projectName: mongodb-poc

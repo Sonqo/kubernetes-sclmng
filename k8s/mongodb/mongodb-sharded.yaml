@@ -3,10 +3,10 @@ kind: MongoDB
 metadata:
     name: mongodb-sharded
 spec:
-    shardCount: 3
+    shardCount: 2
     mongodsPerShardCount: 1
-    mongosCount: 3
-    configServerCount: 3
+    mongosCount: 1
+    configServerCount: 1
     version: 4.4.4-ent
     opsManager:
         configMapRef:
@@ -15,17 +15,24 @@ spec:
     type: ShardedCluster
     persistent: true
     configSrvPodSpec:
-        topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
+        podTemplate:
+            spec:
+                nodeSelector:
+                    status: master
     mongosPodSpec:
-        topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
+        podTemplate:
+            spec:
+                nodeSelector:
+                    status: master
     shardPodSpec:
-        topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
+        podTemplate:
+            spec:
+                nodeSelector:
+                    status: worker
+                topologySpreadConstraints:
+                    - maxSkew: 1
+                      topologyKey: kubernetes.io/hostname
+                      whenUnsatisfiable: DoNotSchedule
+                      labelSelector:
+                          matchLabels:
+                              app: mongodb-sharded-sh
