@@ -5,7 +5,7 @@ metadata:
     labels:
         app: express
 spec:
-    replicas: 3
+    replicas: 1
     selector:
         matchLabels:
             app: express
@@ -14,6 +14,8 @@ spec:
             labels:
                 app: express
         spec:
+            nodeSelector:
+                status: master
             topologySpreadConstraints:
                 - maxSkew: 1
                   topologyKey: kubernetes.io/hostname
@@ -25,7 +27,7 @@ spec:
                 - name: express
                   env:
                       - name: MONGO_URL
-                        value: mongodb://user:root@mongodb-service.mongodb-poc:27017/thesis?authMechanism=SCRAM-SHA-256&authSource=admin
+                        value: mongodb://user:root@mongodb-service.mongodb-poc:27017/thesis?authMechanism=SCRAM-SHA-256&authSource=admin&readPreference=nearest
                   image: sonqo/express-app:latest
                   ports:
                       - containerPort: 3000
@@ -38,7 +40,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    name: express-external
+    name: express-ext
     labels:
         app: express
 spec:
