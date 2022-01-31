@@ -15,3 +15,7 @@ admin.conf
 
 # JMeter log
 api/jmeter.log
+
+# Testing
+*.csv
+*.png
