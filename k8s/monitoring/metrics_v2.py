@@ -38,9 +38,12 @@ while True:
     spec = mongo['spec']['mongodsPerShardCount'] * mongo['spec']['shardCount']
     status = mongo['status']['mongodsPerShardCount'] * mongo['status']['shardCount']
 
-    min_mongods = 1
-    max_mongods = nodes_number // 2
+    curr_shards = mongo['status']['shardCount']
     curr_mongods = mongo['status']['mongodsPerShardCount']
+
+    # max_shards = nodes_number // 3
+    min_mongods = 2
+    max_mongods = nodes_number // 2
 
     if spec == status: # stable state
         overworked_nodes = 0
@@ -48,11 +51,17 @@ while True:
         for metric in cpu_usage_list:
             if metric > 50:
                 overworked_nodes += 1
-            elif metric < 30:
+            elif metric < 35:
                 underworked_nodes += 1
-        patch_body = None
         if overworked_nodes >= 2 and nodes_number > status:
             print('CHANGE NEEDED')
+            # if curr_shards < 3:
+            #     patch_body = {
+            #         'spec': {
+            #             'shardCount' : curr_shards + 1
+            #         }
+            #     }
+            #     print('INCREASED SHARDS')
             if curr_mongods < max_mongods:
                 patch_body = {
                     'spec': {
@@ -61,16 +70,7 @@ while True:
                 }
                 print('INCREASED MONGODS')
             else:
-                print('NO WORKER NODES AVAILABLE') 
-        elif underworked_nodes == nodes_number and curr_mongods > min_mongods:
-            patch_body = {
-                'spec': {
-                    'mongodsPerShardCount' : curr_mongods - 1
-                }
-            }
-        else:
-            print('OK')
-        if patch_body:
+                print('NO WORKER NODES AVAILABLE')
             patch_resource = kube_api.patch_namespaced_custom_object(
                 group='mongodb.com',
                 version='v1',
@@ -79,5 +79,18 @@ while True:
                 plural='mongodb',
                 body=patch_body
             )
-            print('Sleeping for 3 minutes')
-            time.sleep(180)
+            # v1 = client.CoreV1Api()
+            # pods = v1.list_namespaced_pod(namespace='mongodb-app', label_selector='app=express')
+            # for i in pods.items:
+            #     pode_name = i.metadata.name
+            # time.sleep(10)
+            print('Sleeping for 5 minutes')
+            time.sleep(300)
+        elif underworked_nodes == curr_mongods and curr_mongods > min_mongods:
+            patch_body = {
+                'spec': {
+                    'mongodsPerShardCount' : curr_mongods - 1
+                }
+            }
+        else:
+            print('OK')

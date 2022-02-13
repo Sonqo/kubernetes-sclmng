@@ -1,11 +1,20 @@
+import pandas as pd
+import seaborn as sns
 from typing import Tuple
 import random, datetime, requests
+import matplotlib.pyplot as plt
 
+def reshome(url, data, latency):
+    try:
+        reshomee = requests.get(url, data=data, timeout=10)
+        return reshomee.elapsed.total_seconds() + latency
+    except requests.exceptions.Timeout:
+        return reshome(url, data, 10)
 
 def generate_random_date() -> str:
 
-    start_date = datetime.date(2020, 8, 1)
-    end_date = datetime.date(2020, 10, 31)
+    start_date = datetime.date(2020, 10, 1)
+    end_date = datetime.date(2020, 12, 31)
 
     time_between_dates = end_date - start_date
     days_between_dates = time_between_dates.days
@@ -27,17 +36,52 @@ def generate_random_date_range() -> Tuple[str, str]:
 
 def simulate_increased_load():
 
-    url = 'http://35.205.254.108/api/api/ride/show'
+    url = 'http://35.189.249.87/api/ride/show'
 
     hour = random.randint(10, 23)
 
-    for i in range(1000):
-        f_date, _ = generate_random_date_range()
-        data = {
-            's_Date' : str(f_date) + ' {}:00:00'.format(hour),
-            'e_Date' : str(f_date) + ' {}:00:00'.format(hour+2)
-        }
-        res = requests.get(url, data=data)
-        print('Requests made: {} | Execution time: {}'.format(i, res.elapsed.total_seconds()))
+    acc_d, acc_l = [], []
+    try:
+        for i in range(750):
+            f_date, _ = generate_random_date_range()
+            data = {
+                's_Date' : str(f_date) + ' {}:00:00'.format(hour),
+                'e_Date' : str(f_date) + ' {}:00:00'.format(hour+2)
+            }
+            t = datetime.datetime.today()
+            res = reshome(url, data, 0)
+            print('Requests made: {} | Execution time: {}'.format(i, res))
+            acc_d.append(t)
+            acc_l.append(res)
+        return acc_d, acc_l
+    except KeyboardInterrupt:
+        return acc_d, acc_l
 
-simulate_increased_load()
+date, latency = simulate_increased_load()
+
+now = datetime.datetime.now()
+
+final = pd.DataFrame.from_dict(
+{
+    'Date': date,
+    'Latency': latency
+}
+).to_csv('{}.csv'.format(now.strftime("%H:%M:%S")))
+
+# df1 = pd.read_csv('default.csv', index_col=0)
+# df4['rolling'] = df4.Latency.rolling(5).mean()
+
+# sns.lineplot( x = 'Date',
+#              y = 'Latency',
+#              data = df4,
+#              label = 'latency')
+  
+# sns.lineplot( x = 'Date',
+#              y = 'rolling',
+#              data = df4,
+#              label = 'rolling')
+
+# ax = plt.gca()
+# ax.set_ylim([2, 5.5])
+# ax.legend()
+# plt.savefig('new.png')
