@@ -79,5 +79,5 @@ while True:
                 plural='mongodb',
                 body=patch_body
             )
-            print('Sleeping for 3 minutes')
-            time.sleep(180)
+            print('Sleeping for 5 minutes')
+            time.sleep(300)
