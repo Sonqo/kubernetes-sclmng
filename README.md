@@ -1,4 +1,4 @@
-# On-load Scalable MongoDB on Kubernetes
+# Scalable MongoDB on Kubernetes
 
 Official repository for:
 
